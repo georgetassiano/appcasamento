@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <lista-despesas></lista-despesas>
   </div>
 </template>
 
 <script>
+import ListaDespesas from './components/ListaDespesas'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {ListaDespesas}
 }
 </script>
 

@@ -1,11 +1,13 @@
 <template>
-  <p>{{nome}}</p>
-  <p>{{valor}}</p>
-  <a :href="url">Ver Produto</a>
-  <p>{{quantidade}}</p>
-  <p>{{tipo}}</p>
-  <p>{{presente}}</p>
-  <p>{{estado}}</p>
+  <div>
+    <p>{{nome}}</p>
+    <p>{{valor}}</p>
+    <a :href="url" target="_blank">Ver Produto</a>
+    <p>{{quantidade}}</p>
+    <p>{{tipo}}</p>
+    <p>{{paraPresente}}</p>
+    <p>{{estado}}</p>
+  </div>
 </template>
 <script>
   export default{

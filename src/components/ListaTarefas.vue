@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <tarefa v-for="(tarefa, index) in lista" :key="tarefa.nome" :nome="tarefa.nome" :estado="tarefa.estado"></tarefa>
+  <section class="row">
+    <tarefa v-for="(tarefa, index) in lista" :key="tarefa.nome" :nome="tarefa.nome" :estado="tarefa.estado" class="col-xs-12 col-md-4"></tarefa>
   </section>
 </template>
 <script>

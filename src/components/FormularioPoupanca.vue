@@ -1,8 +1,11 @@
 <template>
   <section>
     <form @submit.prevent="adicionar()">
-      <input type="number" v-model="valor">
-      <input type="submit">
+      <div class="form-group">
+        <label>Novo valor da poupança</label>
+        <input type="number" v-model="valor" class="form-control">
+      </div>
+      <input type="submit" class="btn btn-primary">
     </form>
   </section>
 </template>

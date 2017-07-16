@@ -1,8 +1,11 @@
 <template>
   <section>
     <form @submit.prevent="adicionar()">
-      <input type="text" v-model="nome">
-      <input type="submit">
+      <div class="form-group">
+        <label>Nome da tarefa</label>
+        <input type="text" v-model="nome" class="form-control">
+      </div>
+      <input type="submit" class="btn btn-primary">
     </form>
   </section>
 </template>

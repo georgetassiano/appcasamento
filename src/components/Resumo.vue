@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <p>Total em dinheiro em produtos: {{totalProdutos}}</p>
-    <p>Total em dinheiro em despesas: {{totalDespesas}}</p>
-    <p>Total em dinheiro na poupança: {{totalPoupanca}}</p>
-    <p>Tarefas ainda não concluídas: {{totalTarefas}}</p>
-    <p>Total de dinheiro que precisamos: {{totalDinheiro}}</p>
-  </div>
+  <section class="row">
+    <p class="col-xs-12 col-md-6">Total em dinheiro em produtos: {{totalProdutos}}</p>
+    <p class="col-xs-12 col-md-6">Total em dinheiro em despesas: {{totalDespesas}}</p>
+    <p class="col-xs-12 col-md-6">Total em dinheiro na poupança: {{totalPoupanca}}</p>
+    <p class="col-xs-12 col-md-6">Tarefas ainda não concluídas: {{totalTarefas}}</p>
+    <p class="col-xs-12 col-md-6">Total de dinheiro que precisamos: {{totalDinheiro}}</p>
+  </section>
 </template>
 <script>
   export default{

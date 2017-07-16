@@ -1,7 +1,8 @@
 <template>
-  <section>
+  <section class="row">
     <produto v-for="(produto, index) in lista" :key="produto.nome" :nome="produto.nome" :valor="produto.valor"
-    :url="produto.url" :quantidade="produto.quantidade" :tipo="produto.tipo" :paraPresente="produto.paraPresente" :estado="produto.estado"></produto>
+    :url="produto.url" :quantidade="produto.quantidade" :tipo="produto.tipo" :paraPresente="produto.paraPresente"
+     :estado="produto.estado" class="col-xs-12 col-md-6"></produto>
   </section>
 </template>
 <script>

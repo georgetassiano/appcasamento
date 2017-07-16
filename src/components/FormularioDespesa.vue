@@ -1,9 +1,15 @@
 <template>
   <section>
     <form @submit.prevent="adicionar()">
-      <input type="text" v-model="nome">
-      <input type="number" v-model="valor">
-      <input type="submit">
+      <div class="form-group">
+        <label>Nome da despesa</label>
+        <input type="text" v-model="nome" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Valor</label>
+        <input type="number" v-model="valor" class="form-control">
+      </div>
+      <input type="submit" class="btn btn-primary">
     </form>
   </section>
 </template>

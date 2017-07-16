@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
+    <nav class="navbar fixed-top navbar-light bg-faded">
+  <a class="navbar-brand" href="#">Fixed top</a>
+</nav>
     <formulario-despesa></formulario-despesa>
     <formulario-poupanca></formulario-poupanca>
     <formulario-produto></formulario-produto>

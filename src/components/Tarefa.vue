@@ -3,16 +3,19 @@
     <div class="card-block">
       <h3 class="card-title">{{nome}}</h3>
       <a href="#" class="btn btn-primary">Go somewhere</a>
+      <button class="btn btn-danger" @click="removerTarefa({'id': this.identificador})">fechar</button>
     </div>
   </div>
 </template>
 <script>
+  import { mapActions } from 'vuex'
   export default{
     name: 'Tarefa',
-    props: ['nome', 'estado'],
+    props: ['identificador', 'nome', 'estado'],
     methods: {
-      finalizar () {
-      }
+      ...mapActions([
+        'removerTarefa'
+      ])
     }
   }
 </script>

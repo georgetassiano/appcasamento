@@ -1,19 +1,19 @@
 <template>
   <section class="row">
-    <despesa v-for="(despesa, index) in lista" :key="despesa.nome" :nome="despesa.nome" :valor="despesa.valor"
+    <despesa v-for="(despesa, index) in despesas" :key="despesa.id" :nome="despesa.nome" :valor="despesa.valor"
      :estado="despesa.estado" class="col-xs-12 col-md-4"></despesa>
   </section>
 </template>
 <script>
   import Despesa from './Despesa'
+  import { mapGetters } from 'vuex'
   export default{
     name: 'ListaDespesas',
     components: {Despesa},
-    data () {
-      return {
-        lista: [{'nome': 'teste', 'valor': 3000, 'estado': 'concluida'}, {'nome': 'teste1', 'valor': 3000, 'estado': 'concluida1'},
-        {'nome': 'teste2', 'valor': 3000, 'estado': 'concluida2'}]
-      }
+    computed: {
+      ...mapGetters([
+        'despesas'
+      ])
     }
   }
 </script>

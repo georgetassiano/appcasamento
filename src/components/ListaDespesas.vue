@@ -1,7 +1,6 @@
 <template>
   <section class="row">
-    <despesa v-for="(despesa, index) in despesas" :key="despesa.id" :nome="despesa.nome" :valor="despesa.valor"
-     :estado="despesa.estado" class="col-xs-12 col-md-4"></despesa>
+    <despesa v-for="(despesa, index) in despesas" :key="despesa.id" :despesa="despesa" class="col-xs-12 col-md-4"></despesa>
   </section>
 </template>
 <script>

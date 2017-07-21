@@ -42,12 +42,13 @@
   </section>
 </template>
 <script>
+  import { mapActions } from 'vuex'
   export default{
     name: 'FormularioProduto',
     data () {
       return {
         nome: '',
-        valor: 0,
+        valor: 0.0,
         url: '',
         quantidade: 0,
         importante: true,
@@ -55,7 +56,25 @@
       }
     },
     methods: {
-      adicionar () {}
+      ...mapActions([
+        'adicionarProduto'
+      ]),
+      adicionar () {
+        this.adicionarProduto({
+          'nome': this.nome,
+          'valor': this.valor,
+          'url': this.url,
+          'quantidade': this.quantidade,
+          'importante': this.importante,
+          'paraPresente': this.paraPresente
+        })
+        this.nome = ''
+        this.valor = 0.0
+        this.url = ''
+        this.quantidade = 0
+        this.importante = true
+        this.paraPresente = false
+      }
     }
   }
 </script>

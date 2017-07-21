@@ -19,7 +19,7 @@
     data () {
       return {
         nome: '',
-        valor: 0
+        valor: 0.0
       }
     },
     methods: {

@@ -1,5 +1,6 @@
 import * as types from '../mutation-types'
-
+import DB from '../../plugins/database'
+import { map } from 'lodash'
 // estado inicial
 const state = {
   produtos: [],
@@ -14,8 +15,15 @@ const getters = {
 
 // actions
 const actions = {
-  adicionarProduto ({ commit, state }, { nome, valor, url, quantidade, tipo, paraPresente }) {
-    commit(types.ADICIONAR_PRODUTO, { 'id': Math.floor(Math.random() * 100), nome, valor, url, quantidade, tipo, paraPresente })
+  adicionarProduto ({ commit, state }, { nome, valor, url, quantidade, importante, paraPresente }) {
+    DB.ref('produtos').push({ 'id': state.produtos.length, nome, valor, url, quantidade, importante, paraPresente })
+    commit(types.ADICIONAR_PRODUTO, { 'id': state.produtos.length, nome, valor, url, quantidade, importante, paraPresente })
+  },
+  adicionarProdutos ({ commit, state }) {
+    DB.ref('produtos').on('value', data => {
+      const obj = data.val()
+      commit(types.ADICIONAR_PRODUTOS, map(obj, produtos => produtos))
+    })
   },
   removerProduto ({ commit, state }, { id }) {
     commit(types.REMOVER_PRODUTO, { id })
@@ -30,9 +38,21 @@ const actions = {
 
 // mutations
 const mutations = {
-  [types.ADICIONAR_PRODUTO] (state, { id, nome, valor, url, quantidade, tipo, paraPresente }) {
-    state.produtos.push({ 'id': id, 'nome': nome, 'valor': valor, 'url': url, 'quantidade': quantidade, 'tipo': tipo, 'paraPresente': paraPresente, 'estado': false })
+  [types.ADICIONAR_PRODUTO] (state, { id, nome, valor, url, quantidade, importante, paraPresente }) {
+    state.produtos.push({
+      'id': id,
+      'nome': nome,
+      'valor': valor,
+      'url': url,
+      'quantidade': quantidade,
+      'importante': importante,
+      'paraPresente': paraPresente,
+      'estado': false
+    })
     state.totalProdutos += valor * quantidade
+  },
+  [types.ADICIONAR_PRODUTOS] (state, produtos) {
+    state.produtos = produtos
   },
   [types.REMOVER_PRODUTO] (state, { id }) {
     state.produtos.splice(state.produtos.findIndex(d => d.id === id), 1)

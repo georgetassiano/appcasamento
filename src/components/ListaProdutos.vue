@@ -1,21 +1,23 @@
 <template>
-  <section class="row">
+  <section class="container">
     <header>
-      <formulario-edicao-produto :produto="produto" v-if="edicao" @fechar="fecharEdicao()"></formulario-edicao-produto>
+      <router-view></router-view>
+      <h1>Lista de produtos cadastrados</h1>
+      <router-link to="/produtos/novoproduto" tag="button" class="btn btn-success">Adicionar novo produto</router-link>
     </header>
-    <produto v-for="(produto, index) in produtos" :key="produto.id" :produto="produto" @alterar="carregarFormulario(produto)" class="col-xs-12 col-md-6"></produto>
+    <div class="row">
+      <produto v-for="(produto, index) in produtos" :key="produto.id" :produto="produto" @alterar="carregarFormulario(produto)" class="col-xs-12 col-md-6"></produto>
+    </div>
   </section>
 </template>
 <script>
   import Produto from './Produto'
   import { mapGetters } from 'vuex'
-  import FormularioEdicaoProduto from './FormularioEdicaoProduto'
   export default{
     name: 'ListaProdutos',
-    components: {Produto, FormularioEdicaoProduto},
+    components: {Produto},
     data () {
       return {
-        edicao: false,
         produto: {}
       }
     },
@@ -25,16 +27,12 @@
       ])
     },
     mounted () {
-      this.$store.dispatch('adicionarProdutos')
+      this.$store.dispatch('carregarProdutos')
     },
     methods: {
       carregarFormulario (produto) {
         this.produto = JSON.parse(JSON.stringify(produto))
-        this.edicao = true
-      },
-      fecharEdicao () {
-        this.edicao = false
-        this.produto = {}
+        this.$router.push({name: 'EdicaoProduto', params: { 'produto': this.produto }})
       }
     }
   }

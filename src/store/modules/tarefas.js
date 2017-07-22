@@ -1,4 +1,6 @@
 import * as types from '../mutation-types'
+import DB from '../../plugins/database'
+import { map } from 'lodash'
 
 // estado inicial
 const state = {
@@ -12,35 +14,34 @@ const getters = {
 
 // actions
 const actions = {
-  adicionarTarefa ({ commit, state }, { nome }) {
-    commit(types.ADICIONAR_TAREFA, { 'id': Math.floor(Math.random() * 100), nome })
+  adicionarTarefa ({ commit, state }, tarefa) {
+    DB.ref('tarefas').push(tarefa)
+  },
+  carregarTarefas ({ commit, state }) {
+    DB.ref('tarefas').on('value', data => {
+      const obj = data.val()
+      commit(types.CARREGAR_TAREFAS, map(obj, (tarefa, index) => {
+        tarefa.id = index
+        return tarefa
+      }))
+    })
   },
   removerTarefa ({ commit, state }, { id }) {
-    commit(types.REMOVER_TAREFA, { id })
+    DB.ref(`tarefas/${id}`).remove()
   },
-  mudarEstadoTarefa ({ commit, state }, { id }) {
-    commit(types.MUDAR_ESTADO_TAREFA, { id })
+  mudarEstadoTarefa ({ commit, state }, tarefa) {
+    tarefa.estado = !tarefa.estado
+    DB.ref(`tarefas/${tarefa.id}`).update(tarefa)
   },
   alterarTarefa ({ commit, state }, tarefaAlterada) {
-    commit(types.ALTERAR_TAREFA, tarefaAlterada)
+    DB.ref(`tarefas/${tarefaAlterada.id}`).update(tarefaAlterada)
   }
 }
 
 // mutations
 const mutations = {
-  [types.ADICIONAR_TAREFA] (state, { id, nome }) {
-    state.tarefas.push({ 'identificador': id, 'nome': nome, 'estado': false })
-  },
-  [types.REMOVER_TAREFA] (state, { id }) {
-    state.tarefas.splice(state.tarefas.findIndex(d => d.id === id), 1)
-  },
-  [types.MUDAR_ESTADO_TAREFA] (state, { id }) {
-    let indexTarefa = state.tarefas.findIndex(d => d.id === id)
-    state.tarefas[indexTarefa].estado = !state.tarefas[indexTarefa].estado
-  },
-  [types.ALTERAR_TAREFA] (state, tarefaAlterada) {
-    let indexTarefa = state.tarefas.findIndex(d => d.id === tarefaAlterada.id)
-    state.tarefas[indexTarefa] = tarefaAlterada
+  [types.CARREGAR_TAREFAS] (state, tarefas) {
+    state.tarefas = tarefas
   }
 }
 

@@ -3,10 +3,11 @@
     <form @submit.prevent="adicionar">
       <div class="form-group">
         <label>Nome da tarefa</label>
-        <input type="text" v-model="nome" class="form-control">
+        <input type="text" v-model="tarefa.nome" class="form-control">
       </div>
       <input type="submit" class="btn btn-primary">
     </form>
+    <router-link to="/tarefas" tag="button" class="btn btn-danger">fechar</router-link>
   </section>
 </template>
 <script>
@@ -15,7 +16,11 @@
     name: 'FormularioTarefa',
     data () {
       return {
-        nome: ''
+        tarefa: {
+          'id': '',
+          'nome': '',
+          'estado': false
+        }
       }
     },
     methods: {
@@ -23,8 +28,8 @@
         'adicionarTarefa'
       ]),
       adicionar () {
-        this.adicionarTarefa({'nome': this.nome})
-        this.nome = ''
+        this.adicionarTarefa(this.tarefa)
+        this.tarefa.nome = ''
       }
     }
   }

@@ -1,71 +1,49 @@
 import * as types from '../mutation-types'
 import DB from '../../plugins/database'
-import { map } from 'lodash'
+import { map, sum } from 'lodash'
 // estado inicial
 const state = {
-  produtos: [],
-  totalProdutos: 0
+  produtos: []
 }
 
 // getters
 const getters = {
   produtos: state => state.produtos,
-  totalProdutos: state => state.produtos
+  totalProdutos () {
+    return sum(map(state.produtos, o => o.valor))
+  }
 }
 
 // actions
 const actions = {
-  adicionarProduto ({ commit, state }, { nome, valor, url, quantidade, importante, paraPresente }) {
-    DB.ref('produtos').push({ 'id': state.produtos.length, nome, valor, url, quantidade, importante, paraPresente })
-    commit(types.ADICIONAR_PRODUTO, { 'id': state.produtos.length, nome, valor, url, quantidade, importante, paraPresente })
+  adicionarProduto ({ commit, state }, produto) {
+    DB.ref('produtos').push(produto)
   },
-  adicionarProdutos ({ commit, state }) {
+  carregarProdutos ({ commit, state }) {
     DB.ref('produtos').on('value', data => {
       const obj = data.val()
-      commit(types.ADICIONAR_PRODUTOS, map(obj, produtos => produtos))
+      commit(types.CARREGAR_PRODUTOS, map(obj, (produto, index) => {
+        produto.id = index
+        return produto
+      }))
     })
   },
   removerProduto ({ commit, state }, { id }) {
-    commit(types.REMOVER_PRODUTO, { id })
+    DB.ref(`produtos/${id}`).remove()
   },
-  mudarEstadoProduto ({ commit, state }, { id }) {
-    commit(types.MUDAR_ESTADO_PRODUTO, { id })
+  mudarEstadoProduto ({ commit, state }, produto) {
+    produto.estado = !produto.estado
+    DB.ref(`produtos/${produto.id}`).update(produto)
   },
   alterarProduto ({ commit, state }, produtoAlterado) {
-    commit(types.ALTERAR_PRODUTO, produtoAlterado)
+    DB.ref(`produtos/${produtoAlterado.id}`).update(produtoAlterado)
   }
 }
 
 // mutations
 const mutations = {
-  [types.ADICIONAR_PRODUTO] (state, { id, nome, valor, url, quantidade, importante, paraPresente }) {
-    state.produtos.push({
-      'id': id,
-      'nome': nome,
-      'valor': valor,
-      'url': url,
-      'quantidade': quantidade,
-      'importante': importante,
-      'paraPresente': paraPresente,
-      'estado': false
-    })
-    state.totalProdutos += valor * quantidade
-  },
-  [types.ADICIONAR_PRODUTOS] (state, produtos) {
+  [types.CARREGAR_PRODUTOS] (state, produtos) {
     state.produtos = produtos
-  },
-  [types.REMOVER_PRODUTO] (state, { id }) {
-    state.produtos.splice(state.produtos.findIndex(d => d.id === id), 1)
-  },
-  [types.MUDAR_ESTADO_PRODUTO] (state, { id }) {
-    let indexProduto = state.produtos.findIndex(d => d.id === id)
-    state.produtos[indexProduto].estado = !state.produtos[indexProduto].estado
-  },
-  [types.ALTERAR_PRODUTO] (state, produtoAlterado) {
-    let indexProduto = state.produtos.findIndex(d => d.id === produtoAlterado.id)
-    state.totalProdutos -= state.produtos[indexProduto].valor * state.produtos[indexProduto].quantidade
-    state.produtos[indexProduto] = produtoAlterado
-    state.totalProdutos += state.produtos[indexProduto].valor * state.produtos[indexProduto].quantidade
   }
 }
 

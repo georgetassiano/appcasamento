@@ -1,26 +1,46 @@
 import * as types from '../mutation-types'
+import DB from '../../plugins/database'
+import { map, sum } from 'lodash'
 
 // estado inicial
 const state = {
-  valorPoupanca: 0
+  poupancas: []
 }
 
 // getters
 const getters = {
-  valorPoupanca: state => state.valorPoupanca
+  poupancas: state => state.poupancas,
+  totalPoupancas () {
+    return sum(map(state.poupancas, o => o.valor))
+  }
 }
 
 // actions
 const actions = {
-  alterarPoupanca ({ commit, state }, { valor }) {
-    commit(types.ALTERAR_POUPANCA, { valor })
+  adicionarPoupanca ({ commit, state }, poupanca) {
+    DB.ref('poupancas').push(poupanca)
+  },
+  carregarPoupancas ({ commit, state }) {
+    DB.ref('poupancas').on('value', data => {
+      const obj = data.val()
+      commit(types.CARREGAR_POUPANCAS, map(obj, (poupanca, index) => {
+        poupanca.id = index
+        return poupanca
+      }))
+    })
+  },
+  removerPoupanca ({ commit, state }, { id }) {
+    DB.ref(`poupancas/${id}`).remove()
+  },
+  alterarPoupanca ({ commit, state }, poupanca) {
+    DB.ref(`poupancas/${poupanca.id}`).update(poupanca)
   }
 }
 
 // mutations
 const mutations = {
-  [types.ALTERAR_POUPANCA] (state, { valor }) {
-    state.valorPoupanca = valor
+  [types.CARREGAR_POUPANCAS] (state, poupancas) {
+    state.poupancas = poupancas
   }
 }
 

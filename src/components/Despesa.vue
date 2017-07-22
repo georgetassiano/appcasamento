@@ -1,10 +1,10 @@
 <template>
   <div class="card card-outline-danger text-center">
     <div class="card-block">
-      <h3 class="card-title">{{despesa.nome}}</h3>
+      <h3 class="card-title">{{despesa.nome}} <span class="glyphicon glyphicon-ok" v-if="despesa.estado"></span></h3>
       <p class="card-text">{{despesa.valor}}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-      <button class="btn btn-danger" @click="removerDespesa({'id': produto.id})">fechar</button>
+      <button class="btn btn-primary" @click="mudarEstadoDespesa(despesa)">Comprado</button>
+      <button class="btn btn-danger" @click="removerDespesa({'id': despesa.id})">excluir</button>
       <button class="btn btn-warning" @click="alterar()">editar</button>
     </div>
   </div>
@@ -16,7 +16,8 @@
     props: ['despesa'],
     methods: {
       ...mapActions([
-        'removerDespesa'
+        'removerDespesa',
+        'mudarEstadoDespesa'
       ]),
       alterar () {
         this.$emit('alterar')

@@ -7,7 +7,7 @@
       </div>
       <div class="form-group">
         <label>Valor</label>
-        <input type="number" v-model="produto.valor" class="form-control">
+        <input type="number" step="0.01" min="0" placeholder="R$" v-model="produto.valor" class="form-control">
       </div>
       <div class="form-group">
         <label>Link de referência</label>
@@ -39,20 +39,25 @@
       </div>
       <input type="submit" class="btn btn-primary">
     </form>
+    <router-link to="/produtos" tag="button" class="btn btn-danger">fechar</router-link>
   </section>
 </template>
 <script>
   import { mapActions } from 'vuex'
   export default{
     name: 'FormularioEdicaoProduto',
-    props: ['produto'],
+    computed: {
+      produto () {
+        return this.$route.params.produto
+      }
+    },
     methods: {
       ...mapActions([
         'alterarProduto'
       ]),
       alterar () {
         this.alterarProduto(this.produto)
-        this.$emit('fechar')
+        this.$router.push('/produtos')
       }
     }
   }

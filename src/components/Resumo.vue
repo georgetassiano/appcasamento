@@ -1,10 +1,12 @@
 <template>
-  <section class="row">
-    <p class="col-xs-12 col-md-6">Total em dinheiro em despesas: {{totalDespesas}}</p>
-    <p class="col-xs-12 col-md-6">Total em dinheiro em produtos: {{totalProdutos}}</p>
-    <p class="col-xs-12 col-md-6">Total em dinheiro na poupança: {{valorPoupanca}}</p>
-    <p class="col-xs-12 col-md-6">Tarefas ainda não concluídas: {{tarefas.size}}</p>
-    <p class="col-xs-12 col-md-6">Total de dinheiro que precisamos: {{totalDinheiro}}</p>
+  <section class="container">
+    <div class="row">
+      <p class="col-xs-12 col-md-6">Total em dinheiro em despesas: R$ {{totalDespesas}}</p>
+      <p class="col-xs-12 col-md-6">Total em dinheiro em produtos: R$ {{totalProdutos}}</p>
+      <p class="col-xs-12 col-md-6">Total em dinheiro na poupança: R$ {{totalPoupancas}}</p>
+      <p class="col-xs-12 col-md-6">Tarefas ainda não concluídas: {{tarefas.length}}</p>
+      <p class="col-xs-12 col-md-6">Total de dinheiro que precisamos: R$ {{totalDinheiro}}</p>
+    </div>
   </section>
 </template>
 <script>
@@ -16,10 +18,10 @@
         'totalDespesas',
         'totalProdutos',
         'tarefas',
-        'valorPoupanca'
+        'totalPoupancas'
       ]),
       totalDinheiro () {
-        return this.valorPoupanca - (this.totalDespesas + this.totalProdutos)
+        return this.totalPoupancas - (this.totalDespesas + this.totalProdutos)
       }
     }
   }

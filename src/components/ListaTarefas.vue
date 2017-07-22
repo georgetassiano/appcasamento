@@ -1,21 +1,23 @@
 <template>
-  <section class="row">
+  <section class="container">
     <header>
-      <formulario-edicao-tarefa :tarefa="tarefa" v-if="edicao" @fechar="fecharEdicao()"></formulario-edicao-tarefa>
+      <router-view></router-view>
+      <h1>Lista de tarefas cadastradas</h1>
+      <router-link to="/tarefas/novatarefa" tag="button" class="btn btn-success">Adicionar nova tarefa</router-link>
     </header>
-    <tarefa v-for="(tarefa, index) in tarefas" :key="tarefa.id" :tarefa="tarefa" @alterar="carregarFormulario(tarefa)" class="col-xs-12 col-md-4"></tarefa>
+    <div class="row">
+      <tarefa v-for="(tarefa, index) in tarefas" :key="tarefa.id" :tarefa="tarefa" @alterar="carregarFormulario(tarefa)" class="col-xs-12 col-md-6"></tarefa>
+    </div>
   </section>
 </template>
 <script>
   import Tarefa from './Tarefa'
   import { mapGetters } from 'vuex'
-  import FormularioEdicaoTarefa from './FormularioEdicaoTarefa'
   export default{
     name: 'ListaTarefas',
-    components: {Tarefa, FormularioEdicaoTarefa},
+    components: {Tarefa},
     data () {
       return {
-        edicao: false,
         tarefa: {}
       }
     },
@@ -24,14 +26,13 @@
         'tarefas'
       ])
     },
+    mounted () {
+      this.$store.dispatch('carregarTarefas')
+    },
     methods: {
       carregarFormulario (tarefa) {
         this.tarefa = JSON.parse(JSON.stringify(tarefa))
-        this.edicao = true
-      },
-      fecharEdicao () {
-        this.edicao = false
-        this.tarefa = {}
+        this.$router.push({name: 'EdicaoTarefa', params: { 'tarefa': this.tarefa }})
       }
     }
   }

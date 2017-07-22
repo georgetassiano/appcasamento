@@ -1,6 +1,6 @@
 <template>
   <section>
-    <form @submit.prevent="adicionar()">
+    <form @submit.prevent="alterar()">
       <div class="form-group">
         <label>Nome da despesa</label>
         <input type="text" v-model="despesa.nome" class="form-control">
@@ -17,25 +17,19 @@
 <script>
 import { mapActions } from 'vuex'
 export default{
-  name: 'FormularioDespesa',
-  data () {
-    return {
-      despesa: {
-        'id': '',
-        'nome': '',
-        'valor': 0.0,
-        'estado': false
-      }
+  name: 'FormularioEdicaoDespesa',
+  computed: {
+    despesa () {
+      return this.$route.params.despesa
     }
   },
   methods: {
     ...mapActions([
-      'adicionarDespesa'
+      'alterarDespesa'
     ]),
-    adicionar () {
-      this.adicionarDespesa(this.despesa)
-      this.despesa.nome = ''
-      this.despesa.valor = 0.0
+    alterar () {
+      this.alterarDespesa(this.despesa)
+      this.$router.push('/despesas')
     }
   }
 }

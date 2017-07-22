@@ -33,8 +33,9 @@ const actions = {
     DB.ref(`despesas/${id}`).remove()
   },
   mudarEstadoDespesa ({ commit, state }, despesa) {
-    despesa.estado = !despesa.estado
-    DB.ref(`despesas/${despesa.id}`).update(despesa)
+    let despesaCopia = JSON.parse(JSON.stringify(despesa))
+    despesaCopia.estado = !despesaCopia.estado
+    DB.ref(`despesas/${despesa.id}`).update(despesaCopia)
   },
   alterarDespesa ({ commit, state }, despesaAlterada) {
     DB.ref(`despesas/${despesaAlterada.id}`).update(despesaAlterada)

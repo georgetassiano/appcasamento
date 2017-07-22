@@ -1,9 +1,9 @@
 <template>
   <section>
-    <form @submit.prevent="adicionar">
+    <form @submit.prevent="adicionar" autocomplete="off">
       <div class="form-group">
         <label>Nome da tarefa</label>
-        <input type="text" v-model="tarefa.nome" class="form-control">
+        <input type="text" v-model.trim="tarefa.nome" class="form-control" required autofocus>
       </div>
       <input type="submit" class="btn btn-primary">
     </form>

@@ -30,8 +30,9 @@ const actions = {
     DB.ref(`tarefas/${id}`).remove()
   },
   mudarEstadoTarefa ({ commit, state }, tarefa) {
-    tarefa.estado = !tarefa.estado
-    DB.ref(`tarefas/${tarefa.id}`).update(tarefa)
+    let tarefaCopia = JSON.parse(JSON.stringify(tarefa))
+    tarefaCopia.estado = !tarefaCopia.estado
+    DB.ref(`tarefas/${tarefa.id}`).update(tarefaCopia)
   },
   alterarTarefa ({ commit, state }, tarefaAlterada) {
     DB.ref(`tarefas/${tarefaAlterada.id}`).update(tarefaAlterada)

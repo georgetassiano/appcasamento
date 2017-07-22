@@ -1,7 +1,7 @@
 <template>
   <div class="card card-outline-primary text-center">
     <div class="card-block">
-      <h3 class="card-title">{{tarefa.nome}} <span class="glyphicon glyphicon-ok" v-if="tarefa.estado"></span></h3>
+      <h3 class="card-title">{{tarefa.nome}} <span class="glyphicons glyphicons-ok-circle"></span></h3>
       <button class="btn btn-primary" @click="mudarEstadoTarefa(tarefa)">Terminar</button>
       <button class="btn btn-danger" @click="removerTarefa({'id': tarefa.id})">excluir</button>
       <button class="btn btn-warning" @click="alterar()">editar</button>

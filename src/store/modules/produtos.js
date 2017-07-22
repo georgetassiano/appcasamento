@@ -10,7 +10,7 @@ const state = {
 const getters = {
   produtos: state => state.produtos,
   totalProdutos () {
-    return sum(map(state.produtos, o => o.valor))
+    return sum(map(state.produtos, o => o.valor * o.quantidade))
   }
 }
 
@@ -32,8 +32,9 @@ const actions = {
     DB.ref(`produtos/${id}`).remove()
   },
   mudarEstadoProduto ({ commit, state }, produto) {
-    produto.estado = !produto.estado
-    DB.ref(`produtos/${produto.id}`).update(produto)
+    let produtoCopia = JSON.parse(JSON.stringify(produto))
+    produtoCopia.estado = !produtoCopia.estado
+    DB.ref(`produtos/${produto.id}`).update(produtoCopia)
   },
   alterarProduto ({ commit, state }, produtoAlterado) {
     DB.ref(`produtos/${produtoAlterado.id}`).update(produtoAlterado)

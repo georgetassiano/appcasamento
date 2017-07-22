@@ -1,13 +1,13 @@
 <template>
   <section>
-    <form @submit.prevent="alterar()">
+    <form @submit.prevent="alterar()" autocomplete="off">
       <div class="form-group">
         <label>Nome da Poupanca</label>
-        <input type="text" v-model="poupanca.nome" class="form-control">
+        <input type="text" v-model.trim="poupanca.nome" class="form-control" required>
       </div>
       <div class="form-group">
         <label>Valor</label>
-        <input type="number" step="0.01" min="0" placeholder="R$"  v-model="poupanca.valor" class="form-control">
+        <input type="number" step="0.01" min="0" placeholder="R$"  v-model.number="poupanca.valor" class="form-control" required>
       </div>
       <input type="submit" class="btn btn-primary">
     </form>

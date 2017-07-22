@@ -1,13 +1,13 @@
 <template>
   <section>
-    <form @submit.prevent="alterar()">
+    <form @submit.prevent="alterar()" autocomplete="off">
       <div class="form-group">
         <label>Nome do produto</label>
-        <input type="text" v-model="produto.nome" class="form-control">
+        <input type="text" v-model.trim="produto.nome" class="form-control" required>
       </div>
       <div class="form-group">
         <label>Valor</label>
-        <input type="number" step="0.01" min="0" placeholder="R$" v-model="produto.valor" class="form-control">
+        <input type="number" step="0.01" min="0" placeholder="R$" v-model.number="produto.valor" class="form-control" required>
       </div>
       <div class="form-group">
         <label>Link de referência</label>
@@ -15,7 +15,7 @@
       </div>
       <div class="form-group">
         <label>Quantidade</label>
-        <input type="number" v-model="produto.quantidade" class="form-control">
+        <input type="number" v-model.number="produto.quantidade" class="form-control" required>
       </div>
       <div class="form-check form-check-inline">
         <label class="form-check-label">

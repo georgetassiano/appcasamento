@@ -3,7 +3,7 @@
     <div class="card-block">
       <h3 class="card-title">{{despesa.nome}} <span class="glyphicon glyphicon-ok" v-if="despesa.estado"></span></h3>
       <p class="card-text">{{despesa.valor}}</p>
-      <button class="btn btn-primary" @click="mudarEstadoDespesa(despesa)">Comprado</button>
+      <button class="btn btn-primary" @click="mudarEstadoDespesa(despesa)">Paga</button>
       <button class="btn btn-danger" @click="removerDespesa({'id': despesa.id})">excluir</button>
       <button class="btn btn-warning" @click="alterar()">editar</button>
     </div>

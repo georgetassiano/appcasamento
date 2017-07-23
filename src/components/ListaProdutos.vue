@@ -26,9 +26,6 @@
         'produtos'
       ])
     },
-    mounted () {
-      this.$store.dispatch('carregarProdutos')
-    },
     methods: {
       carregarFormulario (produto) {
         this.produto = JSON.parse(JSON.stringify(produto))

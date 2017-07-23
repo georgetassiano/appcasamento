@@ -26,9 +26,6 @@
         'despesas'
       ])
     },
-    mounted () {
-      this.$store.dispatch('carregarDespesas')
-    },
     methods: {
       carregarFormulario (despesa) {
         this.despesa = JSON.parse(JSON.stringify(despesa))

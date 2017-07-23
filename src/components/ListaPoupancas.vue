@@ -26,9 +26,6 @@
         'poupancas'
       ])
     },
-    mounted () {
-      this.$store.dispatch('carregarPoupancas')
-    },
     methods: {
       carregarFormulario (poupanca) {
         this.poupanca = JSON.parse(JSON.stringify(poupanca))

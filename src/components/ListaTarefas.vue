@@ -26,9 +26,6 @@
         'tarefas'
       ])
     },
-    mounted () {
-      this.$store.dispatch('carregarTarefas')
-    },
     methods: {
       carregarFormulario (tarefa) {
         this.tarefa = JSON.parse(JSON.stringify(tarefa))

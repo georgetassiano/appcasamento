@@ -1,7 +1,7 @@
 <template>
   <div class="card card-outline-danger text-center">
     <div class="card-block">
-      <h3 class="card-title">{{produto.nome}} <span class="glyphicon glyphicon-ok" v-if="produto.estado"></span></h3>
+      <h3 class="card-title"><del v-if="produto.estado">{{produto.nome}}</del><span v-else>{{produto.nome}}</span></h3>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">{{produto.valor}}</li>
         <li class="list-group-item"><a :href="produto.url" class="card-link">Ver Produto</a></li>

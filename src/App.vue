@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="container">
+  <!-- Don't drop "q-app" class -->
+  <div id="q-app">
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,6 +32,9 @@
 </template>
 
 <script>
+/*
+ * Root component
+ */
 import Resumo from './components/Resumo'
 export default {
   name: 'app',
@@ -38,10 +42,4 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-</style>
+<style></style>

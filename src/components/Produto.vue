@@ -24,7 +24,7 @@
         </div>
         <div class="item item-link">
           <div class="item-content">
-            <a :href="produto.url">Link do produto</a>
+            <a target="_blank" @click="abrirURL(produto.url)">Link do produto</a>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
 </template>
 <script>
   import { mapActions } from 'vuex'
-  import { ActionSheet, Toast, Dialog } from 'quasar'
+  import { ActionSheet, Toast, Dialog, Utils } from 'quasar'
   export default{
     name: 'Produto',
     props: ['produto'],
@@ -48,6 +48,9 @@
         'mudarEstadoProduto',
         'alterarProduto'
       ]),
+      abrirURL (url) {
+        Utils.openURL(url)
+      },
       showActionSheetWithIcons (produto, mudarEstadoProduto, removerProduto, alterarProduto) {
         ActionSheet.create({
           title: 'Menu de Ações',
@@ -57,8 +60,25 @@
               label: 'Deletar',
               icon: 'delete',
               handler () {
-                removerProduto({'id': produto.id})
-                Toast.create('Produto deletado')
+                Dialog.create({
+                  title: 'Confirmação de exclusão',
+                  message: 'Você realmente deseja apagar o produto?',
+                  buttons: [
+                    {
+                      label: 'Não',
+                      handler () {
+                        Toast.create('Ação cancelada...')
+                      }
+                    },
+                    {
+                      label: 'Sim',
+                      handler () {
+                        removerProduto({'id': produto.id})
+                        Toast.create('Produto deletado')
+                      }
+                    }
+                  ]
+                })
               }
             },
             {
@@ -150,7 +170,7 @@
             icon: 'cancel',
             classes: 'text-primary',
             handler () {
-              Toast.create('Cancelado...')
+              Toast.create('Ação cancelada...')
             }
           }
         })

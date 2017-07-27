@@ -1,21 +1,26 @@
 <template>
-  <section>
-    <div class="layout-padding">
-      <div class="card">
-        <div class="card-title bg-primary text-white">
-          Lista de produtos
-        </div>
-        <div class="card-content">
-          Clique sobre um item da lista para visualizar suas informações. E clicando em seu campo de informações aparecerá o menu de ações dele.
-        </div>
-        <div class="list bordered striped highlight item-delimiter">
-          <produto v-for="(produto, index) in produtos" :key="produto.id" :produto="produto"></produto>
-        </div>
+  <section class="layout-padding">
+    <div class="card">
+      <div class="card-title bg-primary text-white">
+        Lista de produtos
       </div>
-      <button class="green circular push fixed-bottom-left" @click="adicionar(adicionarProduto)" style="left: 18px; bottom: 5px;">
-        <i>add</i>
-      </button>
+      <div class="card-content">
+        Clique sobre um item da lista para visualizar suas informações. E clicando em seu campo de informações aparecerá o menu de ações dele.
+      </div>
+      <div class="list bordered striped highlight item-delimiter">
+        <produto v-for="(produto, index) in produtos" :key="produto.id" :produto="produto"></produto>
+      </div>
     </div>
+    <button class="green circular push absolute-bottom-right" @click="adicionar(adicionarProduto)" style="right: 18px; bottom: 5px;">
+      <i>add</i>
+    </button>
+    <button
+      v-back-to-top.animate="{offset: 500, duration: 200}"
+      class="primary circular fixed-bottom-right animate-pop"
+      style="margin: 0 75px 5px 0"
+    >
+      <i>keyboard_arrow_up</i>
+    </button>
   </section>
 </template>
 <script>

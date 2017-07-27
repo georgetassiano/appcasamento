@@ -1,21 +1,26 @@
 <template>
-  <section>
-    <div class="layout-padding">
-      <div class="card">
-        <div class="card-title bg-primary text-white">
-          Lista de tarefas
-        </div>
-        <div class="card-content">
-          Clique sobre um item da lista para visualizar as ações sobre ele.
-        </div>
-        <div class="list bordered striped highlight item-delimiter">
-          <tarefa v-for="(tarefa, index) in tarefas" :key="tarefa.id" :tarefa="tarefa" class="item item-link"></tarefa>
-        </div>
+  <section class="layout-padding">
+    <div class="card">
+      <div class="card-title bg-primary text-white">
+        Lista de tarefas
       </div>
-      <button class="green circular push fixed-bottom-left" @click="adicionar(adicionarTarefa)" style="left: 18px; bottom: 5px;">
-        <i>add</i>
-      </button>
+      <div class="card-content">
+        Clique sobre um item da lista para visualizar as ações sobre ele.
+      </div>
+      <div class="list bordered striped highlight item-delimiter">
+        <tarefa v-for="(tarefa, index) in tarefas" :key="tarefa.id" :tarefa="tarefa" class="item item-link"></tarefa>
+      </div>
     </div>
+    <button class="green circular push fixed-bottom-right" @click="adicionar(adicionarTarefa)" style="right: 18px; bottom: 5px;">
+      <i>add</i>
+    </button>
+    <button
+      v-back-to-top.animate="{offset: 500, duration: 200}"
+      class="primary circular fixed-bottom-right animate-pop"
+      style="margin: 0 75px 5px 0"
+    >
+      <i>keyboard_arrow_up</i>
+    </button>
   </section>
 </template>
 <script>

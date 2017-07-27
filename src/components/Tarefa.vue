@@ -28,8 +28,25 @@
               label: 'Deletar',
               icon: 'delete',
               handler () {
-                removerTarefa({'id': tarefa.id})
-                Toast.create('Tarefa deletada')
+                Dialog.create({
+                  title: 'Confirmação de exclusão',
+                  message: 'Você realmente deseja apagar a tarefa?',
+                  buttons: [
+                    {
+                      label: 'Não',
+                      handler () {
+                        Toast.create('Ação cancelada...')
+                      }
+                    },
+                    {
+                      label: 'Sim',
+                      handler () {
+                        removerTarefa({'id': tarefa.id})
+                        Toast.create('Tarefa deletada')
+                      }
+                    }
+                  ]
+                })
               }
             },
             {
@@ -78,7 +95,7 @@
             icon: 'cancel',
             classes: 'text-primary',
             handler () {
-              Toast.create('Cancelado...')
+              Toast.create('Ação cancelada...')
             }
           }
         })

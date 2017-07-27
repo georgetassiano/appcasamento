@@ -1,35 +1,61 @@
 <template>
-  <section class="container">
-    <header>
-      <router-view></router-view>
-      <h1>Lista de tarefas cadastradas</h1>
-      <router-link to="/tarefas/novatarefa" tag="button" class="btn btn-success">Adicionar nova tarefa</router-link>
-    </header>
-    <div class="row">
-      <tarefa v-for="(tarefa, index) in tarefas" :key="tarefa.id" :tarefa="tarefa" @alterar="carregarFormulario(tarefa)" class="col-xs-12 col-md-6"></tarefa>
+  <section>
+    <div class="layout-padding">
+      <div class="card">
+        <div class="card-title bg-primary text-white">
+          Lista de tarefas
+        </div>
+        <div class="card-content">
+          Clique sobre um item da lista para visualizar as ações sobre ele.
+        </div>
+        <div class="list bordered striped highlight item-delimiter">
+          <tarefa v-for="(tarefa, index) in tarefas" :key="tarefa.id" :tarefa="tarefa" class="item item-link"></tarefa>
+        </div>
+      </div>
+      <button class="green circular push fixed-bottom-left" @click="adicionar(adicionarTarefa)" style="left: 18px; bottom: 5px;">
+        <i>add</i>
+      </button>
     </div>
   </section>
 </template>
 <script>
   import Tarefa from './Tarefa'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
+  import { Toast, Dialog } from 'quasar'
   export default{
     name: 'ListaTarefas',
     components: {Tarefa},
-    data () {
-      return {
-        tarefa: {}
-      }
-    },
     computed: {
       ...mapGetters([
         'tarefas'
       ])
     },
     methods: {
-      carregarFormulario (tarefa) {
-        this.tarefa = JSON.parse(JSON.stringify(tarefa))
-        this.$router.push({name: 'EdicaoTarefa', params: { 'tarefa': this.tarefa }})
+      ...mapActions([
+        'adicionarTarefa'
+      ]),
+      adicionar (adicionarTarefa) {
+        Dialog.create({
+          title: 'Adicionar tarefa',
+          message: 'Informe os campos da nova tarefa',
+          form: {
+            name: {
+              type: 'textbox',
+              label: 'nome',
+              model: ''
+            }
+          },
+          buttons: [
+            'Cancelar',
+            {
+              label: 'Ok',
+              handler (data) {
+                adicionarTarefa({'id': '', 'nome': data.name, 'estado': false})
+                Toast.create('Tarefa adicionada')
+              }
+            }
+          ]
+        })
       }
     }
   }

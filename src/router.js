@@ -29,74 +29,22 @@ export default new VueRouter({
     {
       path: '/poupancas',
       name: 'Poupancas',
-      component: load('ListaPoupancas'),
-      children: [
-        {
-          path: 'novapoupanca',
-          name: 'NovaPoupanca',
-          component: load('FormularioPoupanca')
-        },
-        {
-          path: 'editarpoupanca',
-          name: 'EdicaoPoupanca',
-          component: load('FormularioEdicaoPoupanca'),
-          props: true
-        }
-      ]
+      component: load('ListaPoupancas')
     },
     {
       path: '/despesas',
       name: 'Despesas',
-      component: load('ListaDespesas'),
-      children: [
-        {
-          path: 'novadespesa',
-          name: 'NovaDespesa',
-          component: load('FormularioDespesa')
-        },
-        {
-          path: 'editardespesa',
-          name: 'EdicaoDespesa',
-          component: load('FormularioEdicaoDespesa'),
-          props: true
-        }
-      ]
+      component: load('ListaDespesas')
     },
     {
       path: '/produtos',
       name: 'Produtos',
-      component: load('ListaProdutos'),
-      children: [
-        {
-          path: 'novoproduto',
-          name: 'NovoProduto',
-          component: load('FormularioProduto')
-        },
-        {
-          path: 'editarproduto',
-          name: 'EdicaoProduto',
-          component: load('FormularioEdicaoProduto'),
-          props: true
-        }
-      ]
+      component: load('ListaProdutos')
     },
     {
       path: '/tarefas',
       name: 'Tarefas',
-      component: load('ListaTarefas'),
-      children: [
-        {
-          path: 'novatarefa',
-          name: 'NovaTarefas',
-          component: load('FormularioTarefa')
-        },
-        {
-          path: 'editartarefa',
-          name: 'EdicaoTarefa',
-          component: load('FormularioEdicaoTarefa'),
-          props: true
-        }
-      ]
+      component: load('ListaTarefas')
     },
     {
       path: '*',

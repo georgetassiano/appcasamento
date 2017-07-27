@@ -1,15 +1,36 @@
 <template>
-  <section class="container">
-    <div class="row">
-      <p class="col-xs-12 col-md-6">Total em dinheiro em despesas: R$ {{totalDespesas}}</p>
-      <p class="col-xs-12 col-md-6">Total em dinheiro em produtos: R$ {{totalProdutos}}</p>
-      <p class="col-xs-12 col-md-6">Total em dinheiro na poupança: R$ {{totalPoupancas}}</p>
-      <p class="col-xs-12 col-md-6">Tarefas ainda não concluídas: {{tarefas.length}}</p>
-      <p class="col-xs-12 col-md-6">Total de dinheiro de despesas+produtos: R$ {{totalParaObter}}</p>
-      <p class="col-xs-12 col-md-6">Total de dinheiro que precisamos: R$ {{totalDinheiro}}</p>
-
+  <div class="list no-border platform-delimiter">
+    <div class="item">
+      <div class="item-content">
+        Total em dinheiro em despesas: R$ {{totalDespesas}}
+      </div>
     </div>
-  </section>
+    <div class="item">
+      <div class="item-content">
+        Total em dinheiro em produtos: R$ {{totalProdutos}}
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Total em dinheiro na poupança: R$ {{totalPoupancas}}
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Tarefas ainda não concluídas: {{tarefas.length}}
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Total de dinheiro de despesas+produtos: R$ {{totalParaObter}}
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Total de dinheiro que precisamos: R$ {{totalDinheiro}}
+      </div>
+    </div>
+  </div>
 </template>
 <script>
   import { mapGetters } from 'vuex'

@@ -1,0 +1,3 @@
+{rotas:}
+rotas->{nome, senha, dados:[]}
+dados->{poupancas:[],despesas:[],tarefas:[],produtos[]}
